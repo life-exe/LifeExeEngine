@@ -1,0 +1,5 @@
+#pragma once
+#define Engine_VERSION_MAJOR @LifeExeEngine_VERSION_MAJOR@
+#define Engine_VERSION_MINOR @LifeExeEngine_VERSION_MINOR@
+#define Engine_VERSION_PATCH @LifeExeEngine_VERSION_PATCH@
+#define Engine_VERSION_STRING "@LifeExeEngine_VERSION@"
