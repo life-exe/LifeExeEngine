@@ -1,0 +1,40 @@
+name: Linux build
+
+on:
+  push:
+    branches: ["master"]
+  pull_request:
+    branches: ["master"]
+
+env:
+  TARGETS: LifeExeEngine
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        configuration:
+          - Release
+          - Debug
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Conan
+        run: pip install conan
+
+      - name: Configure CMake
+        run: cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{matrix.configuration}}
+
+      - name: Build
+        run: cmake --build ${{github.workspace}}/build --config ${{matrix.configuration}} -v --target ${{env.TARGETS}}
+
+      - name: Archive Artifacts
+        run: zip -r artifacts-${{matrix.configuration}}.zip build/bin
+
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: artifacts-${{matrix.configuration}}
+          path: artifacts-${{matrix.configuration}}.zip
