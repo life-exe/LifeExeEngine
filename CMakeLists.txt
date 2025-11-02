@@ -1,5 +1,5 @@
 # general info
-cmake_minimum_required(VERSION 4.1.2)
+cmake_minimum_required(VERSION 3.31.6)
 
 # common options
 project(LifeExe VERSION 1.0.0 LANGUAGES CXX)
