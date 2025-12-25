@@ -1,20 +1,17 @@
 #include "Engine.h"
 #include "Log/Log.h"
 
-#include <format>
-
 using namespace LifeExe;
 
 DEFINE_LOG_CATEGORY_STATIC(LogEngine);
 
 Engine::Engine()
 {
-    Log::getInstance().log(LogEngine, LifeExe::LogVerbosity::Display,  //
-        std::format("Initializing Life Exe Engine, version: {}", version()));
+    LE_LOG(LogEngine, Display, "Initializing Life Exe Engine, version: {}", version());
 
-    Log::getInstance().log(LogEngine, LifeExe::LogVerbosity::Error, "Error example");
-    Log::getInstance().log(LogEngine, LifeExe::LogVerbosity::Warning, "Warning example");
-    Log::getInstance().log(LogEngine, LifeExe::LogVerbosity::NoLogging, "NoLogging example");
-    Log::getInstance().log(LogEngine, LifeExe::LogVerbosity::Log, "Log file example");
-    // Log::getInstance().log(LogEngine, LifeExe::LogVerbosity::Fatal, "Fatal example");
+    LE_LOG_DEBUG(LogEngine, Error, "Error example");
+    LE_LOG_DEBUG(LogEngine, Warning, "Warning example");
+    LE_LOG(LogEngine, NoLogging, "NoLogging example");
+    LE_LOG(LogEngine, Log, "Log file example");
+    // LE_LOG(LogEngine, Fatal, "Fatal example");
 }
