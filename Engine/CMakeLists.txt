@@ -31,9 +31,16 @@ if(MSVC)
     target_compile_options(${PROJECT_NAME}Lib PUBLIC /Zc:preprocessor)
 endif()
 
+# tests
+add_executable(${PROJECT_NAME}TestRunner Tests/LogConceptsTest.cpp)
+target_link_libraries(${PROJECT_NAME}TestRunner PRIVATE ${PROJECT_NAME}Lib)
+
 # add libs
 find_package(spdlog REQUIRED)
 target_link_libraries(${PROJECT_NAME}Lib PUBLIC spdlog::spdlog)
+
+find_package(GTest REQUIRED)
+target_link_libraries(${PROJECT_NAME}TestRunner PRIVATE gtest::gtest)
 
 # folders
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
