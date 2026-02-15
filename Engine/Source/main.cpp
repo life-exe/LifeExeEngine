@@ -3,6 +3,7 @@
 
 int main()
 {
-    const LifeExe::Engine engine;
+    LifeExe::Engine engine;
+    engine.run();
     return EXIT_SUCCESS;
 }

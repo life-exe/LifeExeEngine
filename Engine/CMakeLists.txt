@@ -2,7 +2,7 @@
 cmake_minimum_required(VERSION 3.31.6)
 
 # cpp options
-set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD 23)
 
 # common options
 project(LifeExeEngine VERSION 1.0.0)
@@ -21,6 +21,10 @@ set(ENGINE_SOURCES
     Source/EngineConfig.h
     Source/Log/Log.cpp
     Source/Log/Log.h
+    Source/Window/GLFW/GLFWWindow.h
+    Source/Window/GLFW/GLFWWindow.cpp
+    Source/Window/GLFW/GLFWWindowManager.h
+    Source/Window/GLFW/GLFWWindowManager.cpp
 )
 
 add_library(${PROJECT_NAME}Lib ${ENGINE_SOURCES})
@@ -33,14 +37,15 @@ endif()
 
 # tests
 add_executable(${PROJECT_NAME}TestRunner Tests/LogConceptsTest.cpp)
-target_link_libraries(${PROJECT_NAME}TestRunner PRIVATE ${PROJECT_NAME}Lib)
+find_package(GTest REQUIRED)
+target_link_libraries(${PROJECT_NAME}TestRunner PRIVATE ${PROJECT_NAME}Lib gtest::gtest)
 
 # add libs
 find_package(spdlog REQUIRED)
 target_link_libraries(${PROJECT_NAME}Lib PUBLIC spdlog::spdlog)
 
-find_package(GTest REQUIRED)
-target_link_libraries(${PROJECT_NAME}TestRunner PRIVATE gtest::gtest)
+find_package(glfw3 REQUIRED)
+target_link_libraries(${PROJECT_NAME}Lib PRIVATE glfw)
 
 # folders
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
