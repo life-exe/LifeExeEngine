@@ -1,9 +1,13 @@
 #include "Core/Engine.h"
-#include "stdlib.h"
+#include <cstdlib>
+#include "Window/GLFW/GLFWWindowManager.h"
+
+using namespace LifeExe;
 
 int main()
 {
-    LifeExe::Engine engine;
+    auto windowManager = std::make_unique<GLFWWindowManager>();
+    Engine engine(std::move(windowManager));
     engine.run();
     return EXIT_SUCCESS;
 }

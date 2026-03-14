@@ -21,10 +21,16 @@ set(ENGINE_SOURCES
     Source/EngineConfig.h
     Source/Log/Log.cpp
     Source/Log/Log.h
+    Source/Window/IWindow.h
+    Source/Window/IWindowManager.h
     Source/Window/GLFW/GLFWWindow.h
     Source/Window/GLFW/GLFWWindow.cpp
     Source/Window/GLFW/GLFWWindowManager.h
     Source/Window/GLFW/GLFWWindowManager.cpp
+    Source/Window/WinAPI/WinAPIWindow.h
+    Source/Window/WinAPI/WinAPIWindow.cpp
+    Source/Window/WinAPI/WinAPIWindowManager.h
+    Source/Window/WinAPI/WinAPIWindowManager.cpp
 )
 
 add_library(${PROJECT_NAME}Lib ${ENGINE_SOURCES})
@@ -36,7 +42,10 @@ if(MSVC)
 endif()
 
 # tests
-add_executable(${PROJECT_NAME}TestRunner Tests/LogConceptsTest.cpp)
+add_executable(${PROJECT_NAME}TestRunner
+    Tests/LogConceptTests.cpp
+    Tests/WindowTests.cpp
+)
 find_package(GTest REQUIRED)
 target_link_libraries(${PROJECT_NAME}TestRunner PRIVATE ${PROJECT_NAME}Lib gtest::gtest)
 

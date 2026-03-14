@@ -1,17 +1,16 @@
 #include "Engine.h"
 #include <format>
 #include "Log/Log.h"
-#include "Window/GLFW/GLFWWindowManager.h"
+#include "Window/IWindowManager.h"
 
 using namespace LifeExe;
 
 DEFINE_LOG_CATEGORY_STATIC(LogEngine);
 
-Engine::Engine()
+Engine::Engine(std::unique_ptr<IWindowManager> windowManager)  //
+    : m_windowManager(std::move(windowManager))
 {
     LE_LOG(LogEngine, Display, "Initializing Life Exe Engine, version: {}", version());
-
-    m_windowManager = std::make_unique<GLFWWindowManager>();
 
     const auto windowResult = m_windowManager->createWindow(WindowSettings{});
     if (!windowResult)

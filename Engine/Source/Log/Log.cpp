@@ -85,11 +85,24 @@ private:
 
     fs::path makeLogFile() const
     {
-        fs::create_directory(c_logDirectory);
         const auto now = std::chrono::system_clock::now();
         const auto nowSeconds = std::chrono::floor<std::chrono::seconds>(now);
         const std::string timestamp = std::format(c_timestampFormat, nowSeconds);
         const std::string logName = std::format("{}-{}.{}", c_logFilePrefix, timestamp, c_logFileExtension);
+
+        std::error_code errorCode;
+        fs::create_directory(c_logDirectory, errorCode);
+        if (errorCode)
+        {
+            const auto logDir = fs::current_path() / c_logDirectory;
+            m_consoleLogger->log(spdlog::level::err, std::format("Failed to create log directory: {}", logDir.string()));
+
+            const auto defaultLogDir = fs::current_path() / logName;
+            m_consoleLogger->log(
+                spdlog::level::warn, std::format("Will write to file in the current directory: {}", defaultLogDir.string()));
+            return fs::path(logName);
+        }
+
         return c_logDirectory / logName;
     }
 };

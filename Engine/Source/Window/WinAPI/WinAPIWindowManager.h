@@ -2,32 +2,23 @@
 
 #include "Window/IWindow.h"
 #include "Window/IWindowManager.h"
-#include "Core/Utility.h"
 #include <memory>
-#include <unordered_map>
 #include <expected>
 
 namespace LifeExe
 {
 
-class GLFWWindowManager final : public IWindowManager, public NonCopyable
+class WinAPIWindowManager final : public IWindowManager
 {
 public:
-    GLFWWindowManager();
-    ~GLFWWindowManager() override;
+    WinAPIWindowManager();
+    ~WinAPIWindowManager() override;
 
     void update() override;
     bool areAllWindowsClosed() const override;
 
     std::expected<WindowId, WindowCreationError> createWindow(const WindowSettings& settings) override;
     std::shared_ptr<IWindow> getWindowById(WindowId id) const override;
-
-private:
-    bool m_initialized{false};
-    std::unordered_map<WindowId, std::shared_ptr<IWindow>> m_windows;
-    WindowId m_windowIdCounter{1};
-
-    void cleanupClosedWindows();
 };
 
 }  // namespace LifeExe

@@ -2,25 +2,19 @@
 #include <string>
 #include <functional>
 #include "Window/IWindow.h"
-#include "Core/Utility.h"
-
-class GLFWwindow;
 
 namespace LifeExe
 {
 
-class GLFWWindow final : public IWindow, public NonCopyable
+class WinAPIWindow final : public IWindow
 {
 public:
-    GLFWWindow(const WindowSettings& settings);
-    ~GLFWWindow() override;
+    WinAPIWindow(const WindowSettings& settings);
+    ~WinAPIWindow() override;
 
     void setTitle(const std::string& title) override;
     bool isValid() const override;
     bool shouldClose() const override;
-
-private:
-    GLFWwindow* m_window{nullptr};
 };
 
 }  // namespace LifeExe
