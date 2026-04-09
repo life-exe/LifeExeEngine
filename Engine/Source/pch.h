@@ -1,5 +1,7 @@
 #pragma once
 
+#include "Log/Log.h"
+
 #include <string_view>
 #include <string>
 #include <vector>

@@ -31,6 +31,8 @@ set(ENGINE_SOURCES
     Source/Window/WinAPI/WinAPIWindow.cpp
     Source/Window/WinAPI/WinAPIWindowManager.h
     Source/Window/WinAPI/WinAPIWindowManager.cpp
+    Source/Event/Event.h
+    Source/Event/InputEvent.h
 )
 
 add_library(${PROJECT_NAME}Lib ${ENGINE_SOURCES})
