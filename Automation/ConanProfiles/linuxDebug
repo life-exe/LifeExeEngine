@@ -3,8 +3,8 @@ os=Linux
 arch=x86_64
 build_type=Debug
 compiler=gcc
-compiler.cppstd=20
-compiler.version=11
+compiler.cppstd=23
+compiler.version=13
 compiler.libcxx=libstdc++11
 
 [conf]
