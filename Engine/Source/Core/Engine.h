@@ -3,6 +3,7 @@
 #include <memory>
 #include "EngineConfig.h"
 #include "Core/Utility.h"
+#include "Event/InputEvent.h"
 
 namespace LifeExe
 {
@@ -22,6 +23,8 @@ public:
 private:
     const std::unique_ptr<IWindowManager> m_windowManager;
     bool m_initialized{false};
+
+    void onWindowEvent(const InputEvent& event);
 };
 
 }  // namespace LifeExe

@@ -23,3 +23,8 @@ bool WinAPIWindow::shouldClose() const
 {
     return true;
 }
+
+Event<const InputEvent&>& WinAPIWindow::windowEvent()
+{
+    return m_windowEvent;
+}

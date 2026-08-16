@@ -47,6 +47,8 @@ endif()
 add_executable(${PROJECT_NAME}TestRunner
     Tests/LogConceptTests.cpp
     Tests/WindowTests.cpp
+    Tests/EventTests.cpp
+    Tests/InputEventTests.cpp
 )
 find_package(GTest REQUIRED)
 target_link_libraries(${PROJECT_NAME}TestRunner PRIVATE ${PROJECT_NAME}Lib gtest::gtest)

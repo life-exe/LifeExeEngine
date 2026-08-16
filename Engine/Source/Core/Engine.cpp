@@ -22,6 +22,8 @@ Engine::Engine(std::unique_ptr<IWindowManager> windowManager)  //
     if (auto window = m_windowManager->getWindowById(windowResult.value()))
     {
         window->setTitle(std::format("Life Exe Engine, version: {}", version()));
+        window->windowEvent().add(this, &Engine::onWindowEvent);
+        // window->windowEvent().add([](const InputEvent& event) {});
     }
 
     m_initialized = true;
@@ -40,5 +42,28 @@ void Engine::run()
     while (!m_windowManager->areAllWindowsClosed())
     {
         m_windowManager->update();
+    }
+}
+
+void Engine::onWindowEvent(const InputEvent& event)
+{
+    //  LE_LOG(LogGLFWWindow, Display, "Mouse button:{}, action:{}", button, action);
+    //  LE_LOG(LogGLFWWindow, Display, "Key={}, scancode={}", key, scancode);
+
+    if (auto* data = std::get_if<MouseScrollEventData>(&event.data))
+    {
+        LE_LOG(LogEngine, Display, "Mouse scroll: xoffset={},yoffset={}", data->xOffset, data->yOffset);
+    }
+    else if (auto* data = std::get_if<MouseMoveEventData>(&event.data))
+    {
+        LE_LOG(LogEngine, Display, "Mouse position:  x={}, y={}", data->x, data->y);
+    }
+    else if (auto* data = std::get_if<WindowResizeEventData>(&event.data))
+    {
+        LE_LOG(LogEngine, Display, "Resize: width={}, height={}", data->width, data->height);
+    }
+    else if (auto* data = std::get_if<WindowCloseEventData>(&event.data))
+    {
+        LE_LOG(LogEngine, Display, "Window with id={} closed!", data->id);
     }
 }

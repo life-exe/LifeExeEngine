@@ -1,5 +1,7 @@
 #pragma once
 
+#include <variant>
+
 namespace LifeExe
 {
 enum class EventType
@@ -12,7 +14,34 @@ enum class EventType
     KeyPress
 };
 
-using EventData = int;  // temp
+struct MouseMoveEventData
+{
+    double x;
+    double y;
+};
+
+struct MouseScrollEventData
+{
+    double xOffset;
+    double yOffset;
+};
+
+struct WindowResizeEventData
+{
+    int width;
+    int height;
+};
+
+struct WindowCloseEventData
+{
+    unsigned int id;
+};
+
+using EventData = std::variant<std::monostate,  //
+    MouseMoveEventData,                         //
+    MouseScrollEventData,                       //
+    WindowResizeEventData,                      //
+    WindowCloseEventData>;
 
 struct InputEvent
 {

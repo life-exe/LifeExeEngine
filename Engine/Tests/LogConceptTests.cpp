@@ -3,7 +3,7 @@
 
 using namespace LifeExe;
 
-TEST(LogConceptsTest, LogCategoryNameShouldBeValid)
+TEST(LogConceptTest, LogCategoryNameShouldBeValid)
 {
     LogCategory category1("TestCategory");
     EXPECT_EQ(category1.name(), "TestCategory");
@@ -14,13 +14,13 @@ TEST(LogConceptsTest, LogCategoryNameShouldBeValid)
     EXPECT_NE(category1.name(), category2.name());
 }
 
-TEST(LogConceptsTest, LogCategoryTypeShouldBeValid)
+TEST(LogConceptTest, LogCategoryTypeShouldBeValid)
 {
     static_assert(ValidLogCategory<LogCategory>);
     static_assert(ValidLogCategory<const LogCategory&>);
 }
 
-TEST(LogConceptsTest, LogMessageTypeShouldBeValid)
+TEST(LogConceptTest, LogMessageTypeShouldBeValid)
 {
     static_assert(LoggableMessage<std::string>);
     static_assert(LoggableMessage<const std::string&>);
@@ -34,7 +34,7 @@ TEST(LogConceptsTest, LogMessageTypeShouldBeValid)
     static_assert(!LoggableMessage<void*>);
 }
 
-TEST(LogConceptsTest, LogVerbosityShouldBeValid)
+TEST(LogConceptTest, LogVerbosityShouldBeValid)
 {
     static_assert(ValidVerbosityLevel<LogVerbosity::NoLogging>);
     static_assert(ValidVerbosityLevel<LogVerbosity::Display>);
